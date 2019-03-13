@@ -21,20 +21,3 @@ let package = Package(
 		]),
     ]
 )
-
-#if canImport(PackageConfig)
-import PackageConfig
-
-let config = PackageConfig(
-	"phase": [
-		"project": "phase.xcodeproj"
-		"phases": [
-			"SwiftLint": [
-				"script": "swiftlint",
-				"targets": ["targetOne", "targetTwo"],
-			],
-		],
-	],
-)
-
-#endif
