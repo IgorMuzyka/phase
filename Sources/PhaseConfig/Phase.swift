@@ -1,5 +1,5 @@
 
-public struct Phase: Equatable, Hashable {
+public struct Phase: Equatable, Hashable, Codable {
 
 	public let name: String
 	public let script: String

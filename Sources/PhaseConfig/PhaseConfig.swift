@@ -1,5 +1,5 @@
 
-public struct PhaseConfig {
+public struct PhaseConfig: Codable {
 
 	public let projectPath: String
 	public let phases: [Phase]
