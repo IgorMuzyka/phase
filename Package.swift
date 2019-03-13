@@ -15,7 +15,7 @@ let package = Package(
 		.package(url: "https://github.com/kylef/PathKit", from: "0.9.2"),
     ],
     targets: [
-		.target(name: "PhaseConfig", dependencies: [])
+		.target(name: "PhaseConfig", dependencies: []),
 		.target(name: "Phase", dependencies: [
 			"xcodeproj",
 			"PackageConfig",
