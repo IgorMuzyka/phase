@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "Phase",
     products: [
-        .executable(name: "Phase", targets: ["Phase"]),
 		.library(name: "PhaseConfig", type: .dynamic, targets: ["PhaseConfig"]),
+        .executable(name: "Phase", targets: ["Phase"]),
     ],
     dependencies: [
 		.package(url: "https://github.com/orta/PackageConfig.git", from: "0.0.1"),
