@@ -17,7 +17,7 @@ let package = Package(
 		.target(name: "phase", dependencies: [
 			"xcodeproj",
 			"PackageConfig",
-			"PathKit"
+			"PathKit",
 		]),
     ]
 )
