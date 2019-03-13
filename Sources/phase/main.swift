@@ -99,7 +99,7 @@ func install(phase: PBXShellScriptBuildPhase, on target: PBXTarget) -> Bool {
 	return true
 }
 
-func install(phases: [BuildPhase], on project: XcodeProj) {
+func install(phases: [BuildPhase], on project: XcodeProj) -> Bool {
 	let targetNames = phases.map { $0.targets }.reduce([], +).unique()
 	let targets = targetNames.reduce(into: [PBXNativeTarget]()) { (targets, targetName) in
 		guard let target = project.pbxproj.nativeTargets.first(where: { $0.name == targetName }) else {
@@ -135,7 +135,6 @@ func install(phases: [BuildPhase], on project: XcodeProj) {
 	var installedPhasesNames = [String]()
 
 	logger.logInfo("Installing build phases on targets")
-
 	targetsAndPhasesToInstall.forEach { target, phases in
 		for phase in phases {
 			if install(phase: phase, on: target) {
@@ -150,6 +149,8 @@ func install(phases: [BuildPhase], on project: XcodeProj) {
 	}.forEach {
 		project.pbxproj.add(object: $0)
 	}
+
+	return !installableBuildPhases.isEmpty
 }
 
 func writeProject(_ project: XcodeProj, path: Path) {
@@ -164,8 +165,12 @@ func writeProject(_ project: XcodeProj, path: Path) {
 let configuration = readConfiguration()
 let phases = readBuildPhases(from: configuration)
 let (project, path) = readProject(from: configuration)
+let projectNeedsSaving = install(phases: phases, on: project)
 
-install(phases: phases, on: project)
+guard install(phases: phases, on: project) else {
+	logger.logInfo("No updates to xcode project to be persisted, exiting.")
+	exit(EXIT_SUCCESS)
+}
+
 writeProject(project, path: path)
-
 exit(EXIT_SUCCESS)
