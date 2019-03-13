@@ -4,9 +4,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "phase",
+    name: "Phase",
     products: [
-        .executable(name: "phase", targets: ["phase"]),
+        .executable(name: "Phase", targets: ["Phase"]),
+		.library(name: "PhaseConfig", targets: ["PhaseConfig"]),
     ],
     dependencies: [
 		.package(url: "https://github.com/orta/PackageConfig.git", from: "0.0.1"),
@@ -14,10 +15,12 @@ let package = Package(
 		.package(url: "https://github.com/kylef/PathKit", from: "0.9.2"),
     ],
     targets: [
-		.target(name: "phase", dependencies: [
+		.target(name: "PhaseConfig", dependencies: [])
+		.target(name: "Phase", dependencies: [
 			"xcodeproj",
 			"PackageConfig",
 			"PathKit",
+			"PhaseConfig"
 		]),
     ]
 )

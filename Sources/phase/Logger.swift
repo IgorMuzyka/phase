@@ -7,7 +7,7 @@ private enum Colors: String {
 	case yellow = "\u{001B}[33m"
 }
 
-public struct Logger {
+struct Logger {
 	public let isVerbose: Bool
 	public let isSilent: Bool
 	private let printer: Printing

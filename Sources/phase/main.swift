@@ -3,45 +3,15 @@ import Foundation
 import PackageConfig
 import PathKit
 import xcodeproj
+import PhaseConfig
 
 let isVerbose = CommandLine.arguments.contains("--verbose") || (ProcessInfo.processInfo.environment["DEBUG"] != nil)
 let isSilent = CommandLine.arguments.contains("--silent")
 let logger = Logger(isVerbose: isVerbose, isSilent: isSilent)
 
-public struct Phase: Equatable, Hashable {
-	
-	public let name: String
-	public let script: String
-	public let targets: [String]
 
-	public init(name: String, script: String, targets: [String]) {
-		self.name = name
-		self.script = script
-		self.targets = targets
-	}
-}
-
-public struct PhaseConfig {
-
-	public let projectPath: String
-	public let phases: [Phase]
-
-	public init(projectPath: String, phases: [Phase]) {
-		self.projectPath = projectPath
-		self.phases = phases
-	}
-}
 
 typealias Installations = [String: [Phase]]
-
-extension Sequence where Iterator.Element: Hashable {
-
-	func unique() -> [Iterator.Element] {
-		var seen: [Iterator.Element: Bool] = [:]
-		return self.filter { seen.updateValue(true, forKey: $0) == nil }
-	}
-}
-
 
 func readConfiguration() -> PhaseConfig {
 	guard let configuration = getPackageConfig()["phase"] as? PhaseConfig else {
