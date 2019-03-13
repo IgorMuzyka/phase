@@ -8,20 +8,31 @@ let isVerbose = CommandLine.arguments.contains("--verbose") || (ProcessInfo.proc
 let isSilent = CommandLine.arguments.contains("--silent")
 let logger = Logger(isVerbose: isVerbose, isSilent: isSilent)
 
-public typealias Target = String
-public typealias Script = String
-public typealias Phases = [String: AnyObject]
-public typealias ProjectPath = String
-public typealias Configuration = [String: AnyObject]
-typealias Installations = [Target: [BuildPhase]]
-
-
-struct BuildPhase: Equatable, Hashable {
+public struct Phase: Equatable, Hashable {
 	
-	let name: String
-	let targets: [Target]
-	let script: Script
+	public let name: String
+	public let script: String
+	public let targets: [String]
+
+	public init(name: String, script: String, targets: [String]) {
+		self.name = name
+		self.script = script
+		self.targets = targets
+	}
 }
+
+public struct PhaseConfig {
+
+	public let projectPath: String
+	public let phases: [Phase]
+
+	public init(projectPath: String, phases: [Phase]) {
+		self.projectPath = projectPath
+		self.phases = phases
+	}
+}
+
+typealias Installations = [String: [Phase]]
 
 extension Sequence where Iterator.Element: Hashable {
 
@@ -32,8 +43,8 @@ extension Sequence where Iterator.Element: Hashable {
 }
 
 
-func readConfiguration() -> Configuration {
-	guard let configuration = getPackageConfig()["phase"] as? Configuration else {
+func readConfiguration() -> PhaseConfig {
+	guard let configuration = getPackageConfig()["phase"] as? PhaseConfig else {
 		logger.logError("phase was called without configuration")
 		exit(EXIT_FAILURE)
 	}
@@ -41,39 +52,8 @@ func readConfiguration() -> Configuration {
 	return configuration
 }
 
-func readBuildPhases(from configuration: Configuration) -> [BuildPhase] {
-	var buildPhases = [BuildPhase]()
-
-	guard let phasesConfiguration = configuration["phases"] as? Phases else {
-		logger.logWarning("No phases definition was specified")
-		return []
-	}
-
-	for (name, phase) in phasesConfiguration {
-		guard let script = phase["script"] as? Script else {
-			logger.logError("No script for phase \(name)")
-			continue
-		}
-
-		guard let targets = phase["targets"] as? [Target], !targets.isEmpty else {
-			logger.logError("No targets for phase \(name)")
-			continue
-		}
-
-		logger.logInfo("Finished reading definition for phase \(name)")
-		buildPhases.append(BuildPhase(name: name, targets: targets, script: script))
-	}
-
-	return buildPhases
-}
-
-func readProject(from configuration: Configuration) -> (XcodeProj, Path) {
-	guard let projectPath = configuration["project"] as? ProjectPath else {
-		logger.logWarning("No project path was specified")
-		exit(EXIT_FAILURE)
-	}
-
-	let path = Path(projectPath)
+func readProject(from configuration: PhaseConfig) -> (XcodeProj, Path) {
+	let path = Path(configuration.projectPath)
 
 	do {
 		let project = try XcodeProj(path: path)
@@ -99,7 +79,7 @@ func install(phase: PBXShellScriptBuildPhase, on target: PBXTarget) -> Bool {
 	return true
 }
 
-func install(phases: [BuildPhase], on project: XcodeProj) -> Bool {
+func install(phases: [Phase], on project: XcodeProj) -> Bool {
 	let targetNames = phases.map { $0.targets }.reduce([], +).unique()
 	let targets = targetNames.reduce(into: [PBXNativeTarget]()) { (targets, targetName) in
 		guard let target = project.pbxproj.nativeTargets.first(where: { $0.name == targetName }) else {
@@ -163,11 +143,9 @@ func writeProject(_ project: XcodeProj, path: Path) {
 }
 
 let configuration = readConfiguration()
-let phases = readBuildPhases(from: configuration)
 let (project, path) = readProject(from: configuration)
-let projectNeedsSaving = install(phases: phases, on: project)
 
-guard install(phases: phases, on: project) else {
+guard install(phases: configuration.phases, on: project) else {
 	logger.logInfo("No updates to xcode project to be persisted, exiting.")
 	exit(EXIT_SUCCESS)
 }
