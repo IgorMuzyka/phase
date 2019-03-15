@@ -15,10 +15,10 @@ let package = Package(
 		.package(url: "https://github.com/tuist/xcodeproj.git", from: "6.6.0"),
 		.package(url: "https://github.com/kylef/PathKit", from: "0.9.2"),
 
-//		.package(url: "https://github.com/Quick/Quick", from: "1.3.2"), // dev
-//		.package(url: "https://github.com/Quick/Nimble", from: "7.3.1"), // dev
-//		.package(url: "https://github.com/kareman/SwiftShell", from: "4.0.0"), // dev
-//		.package(url: "https://github.com/JohnSundell/Files", from: "2.2.1"), // dev
+		.package(url: "https://github.com/Quick/Quick", from: "1.3.2"), // dev
+		.package(url: "https://github.com/Quick/Nimble", from: "7.3.1"), // dev
+		.package(url: "https://github.com/kareman/SwiftShell", from: "4.0.0"), // dev
+		.package(url: "https://github.com/JohnSundell/Files", from: "2.2.1"), // dev
     ],
     targets: [
 		.target(name: "Phase", dependencies: [
