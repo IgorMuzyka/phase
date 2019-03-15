@@ -4,9 +4,9 @@ import PathKit
 
 extension Procedure {
 
-
 	static var writeProject: Procedure<(XcodeProj, Path), Void> {
 		return Procedure<(XcodeProj, Path), Void> { input, logger in
+			logger.logInfo("Saving project")
 			let (project, path) = input
 
 			do {

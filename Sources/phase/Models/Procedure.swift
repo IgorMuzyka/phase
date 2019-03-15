@@ -1,11 +1,11 @@
 
 import Foundation
+import Logger
 
 struct Procedure<Input, Output> {
 
 	typealias Script = (Input, Logger) throws -> Output
 
-//	let description: String
 	let script: Script
 
 	@discardableResult

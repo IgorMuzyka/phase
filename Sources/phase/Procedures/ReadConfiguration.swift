@@ -34,7 +34,7 @@ extension Procedure {
 					continue
 				}
 
-				logger.logInfo("Finished reading definition for phase \(name)")
+				logger.logInfo("Found \(name) phase definition")
 				buildPhases.append(Phase(name: name, script: script, targets: targets))
 			}
 

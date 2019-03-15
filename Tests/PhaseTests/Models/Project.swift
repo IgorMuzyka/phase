@@ -75,7 +75,7 @@ let package = Package(
 import PackageConfig
 
 let config = PackageConfig([
-    "\(name)": [
+    "phase": [
         "projectPath": "\(name).xcodeproj",
         "phases": [
 \(configPhases)

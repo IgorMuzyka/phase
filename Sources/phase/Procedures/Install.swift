@@ -38,8 +38,8 @@ extension Procedure {
 				for targetName in phase.targets {
 					installation[targetName]!.append(phase)
 				}
-				}.filter { targetName, phase in
-					return targets.firstIndex(where: { $0.name == targetName }) != nil
+			}.filter { targetName, phase in
+				return targets.firstIndex(where: { $0.name == targetName }) != nil
 			}
 			let installableBuildPhases = installations.map { $0.value }.reduce([], +).unique().map { phase in
 				PBXShellScriptBuildPhase(name: phase.name, shellScript: phase.script)
@@ -69,8 +69,8 @@ extension Procedure {
 			logger.logInfo("Installing build phases on project")
 			installedPhasesNames.unique().compactMap { name in
 				installableBuildPhases.first(where: { $0.name == name })
-				}.forEach {
-					project.pbxproj.add(object: $0)
+			}.forEach {
+				project.pbxproj.add(object: $0)
 			}
 
 			return !installableBuildPhases.isEmpty
