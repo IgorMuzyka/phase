@@ -1,11 +1,11 @@
 
-struct Phase: Equatable, Hashable, Codable {
+public struct Phase: Equatable, Hashable, Codable {
 
-	let name: String
-	let script: String
-	let targets: [String]
+	public let name: String
+	public let script: String
+	public let targets: [String]
 
-	init(name: String, script: String, targets: [String]) {
+	public init(name: String, script: String, targets: [String]) {
 		self.name = name
 		self.script = script
 		self.targets = targets

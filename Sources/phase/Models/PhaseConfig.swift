@@ -1,10 +1,10 @@
 
-struct PhaseConfig: Codable {
+public struct PhaseConfig: Codable {
 
-	let projectPath: String
-	let phases: [Phase]
+	public let projectPath: String
+	public let phases: [Phase]
 
-	init(projectPath: String, phases: [Phase]) {
+	public init(projectPath: String, phases: [Phase]) {
 		self.projectPath = projectPath
 		self.phases = phases
 	}
