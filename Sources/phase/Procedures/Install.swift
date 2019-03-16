@@ -1,4 +1,5 @@
 
+import PhaseConfig
 import xcodeproj
 
 extension Procedure {
@@ -23,6 +24,11 @@ extension Procedure {
 			}
 
 			let (phases, project) = input
+
+			guard !phases.isEmpty else {
+				return false
+			}
+
 			let targetNames = phases.map { $0.targets }.reduce([], +).unique()
 			let targets = targetNames.reduce(into: [PBXNativeTarget]()) { (targets, targetName) in
 				guard let target = project.pbxproj.nativeTargets.first(where: { $0.name == targetName }) else {
@@ -73,7 +79,11 @@ extension Procedure {
 				project.pbxproj.add(object: $0)
 			}
 
-			return !installableBuildPhases.isEmpty
+			guard !installableBuildPhases.isEmpty else {
+				return false
+			}
+
+			return true
 		}
 	}
 }

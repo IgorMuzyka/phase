@@ -1,5 +1,7 @@
 
-public struct PhaseConfig: Codable {
+import PackageConfig
+
+public struct PhaseConfig: Codable, PackageConfig {
 
 	public let projectPath: String
 	public let phases: [Phase]
@@ -8,4 +10,6 @@ public struct PhaseConfig: Codable {
 		self.projectPath = projectPath
 		self.phases = phases
 	}
+
+	public static var dynamicLibraries: [String] { return ["PhaseConfig"] }
 }

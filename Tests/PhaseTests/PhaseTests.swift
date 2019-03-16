@@ -8,10 +8,6 @@ import SwiftShell
 class PhaseTests: QuickSpec {
 
 	override func spec() {
-		describe("TestProject Spec") {
-
-		}
-
 		describe("Phase Spec") {
 			context("Should successfully inject build phases into project") {
 
