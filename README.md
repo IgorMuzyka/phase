@@ -55,5 +55,5 @@ PhaseConfig(
 To make sure you can run `phase` run this in your project directory with `Package.swift`.
 ```bash
 swift package resolve
-swift run package-config // builds PackageConfigs dependencies
+swift run package-config # builds PackageConfigs dependencies
 ```
