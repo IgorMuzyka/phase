@@ -33,12 +33,16 @@ let package = Package(
 			"xcodeproj",
 			"PathKit",
 		]),
-		.testTarget(name: "PhaseTests", dependencies:[
+		.testTarget(name: "PhaseTests", dependencies: [
 			"Quick",
 			"Nimble",
 			"SwiftShell",
 			"xcodeproj",
 			"Files",
+		]),
+
+		.target(name: "PackageConfigs", dependencies: [
+			"PhaseConfig",
 		]),
     ]
 )

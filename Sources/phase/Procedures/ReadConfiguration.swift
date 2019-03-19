@@ -8,11 +8,12 @@ extension Procedure {
 		return Procedure<Void, PhaseConfig> { _, logger in
 			logger.logInfo("Reading phase configuration")
 
-			guard let config = PhaseConfig.load() else {
+			do {
+				let config = try PhaseConfig.load()
+				return config
+			} catch {
 				throw Error.failedToLoadConfiguration
 			}
-			
-			return config
 		}
 	}
 }
