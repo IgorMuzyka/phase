@@ -41,9 +41,9 @@ let package = Package(
 			"Files",
 		]),
 
-		.target(name: "PackageConfigs", dependencies: [
-			"PhaseConfig",
-		]),
+//		.target(name: "PackageConfigs", dependencies: [
+//			"PhaseConfig",
+//		]),
     ]
 )
 
