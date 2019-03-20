@@ -11,7 +11,7 @@ Define your build phases at the very bottom of your `Package.swift` like this.
 import PhaseConfig
 
 PhaseConfig(phases: [
-	Phase(
+    Phase(
         name: "Swift Lint", 
         script: "swiftlint", // actual bash script that will be added to xcodeproj build phase
         targets: ["SomeTarget", "AnotherTarget"] // targets on which to apply
@@ -20,7 +20,7 @@ PhaseConfig(phases: [
         name: "Generate code",
         script: "sourcery",
         targets: ["OneMoreTarget"]
-    )
+    ),
 ]).write()
 #endif
 ```
@@ -54,4 +54,3 @@ To make sure you can run `phase` run this in your project directory with `Packag
 ```bash
 swift run package-config # builds PackageConfigs dependencies
 ```
-
