@@ -18,10 +18,10 @@ let package = Package(
 
 //		.package(url: "https://github.com/f-meloni/Rocket", from: "0.0.1"), // dev
 //		.package(url: "https://github.com/IgorMuzyka/ignore", .branch("master")), // dev
-		.package(url: "https://github.com/Quick/Quick", from: "1.3.2"), // dev
-		.package(url: "https://github.com/Quick/Nimble", from: "7.3.1"), // dev
-		.package(url: "https://github.com/kareman/SwiftShell", from: "4.0.0"), // dev
-		.package(url: "https://github.com/JohnSundell/Files", from: "2.2.1"), // dev
+//		.package(url: "https://github.com/Quick/Quick", from: "1.3.2"), // dev
+//		.package(url: "https://github.com/Quick/Nimble", from: "7.3.1"), // dev
+//		.package(url: "https://github.com/kareman/SwiftShell", from: "4.0.0"), // dev
+//		.package(url: "https://github.com/JohnSundell/Files", from: "2.2.1"), // dev
     ],
     targets: [
 		.target(name: "PhaseConfig", dependencies: [
@@ -33,13 +33,13 @@ let package = Package(
 			"xcodeproj",
 			"PathKit",
 		]),
-		.testTarget(name: "PhaseTests", dependencies: [
-			"Quick",
-			"Nimble",
-			"SwiftShell",
-			"xcodeproj",
-			"Files",
-		]),
+//		.testTarget(name: "PhaseTests", dependencies: [
+//			"Quick",
+//			"Nimble",
+//			"SwiftShell",
+//			"xcodeproj",
+//			"Files",
+//		]),
 
 //		.target(name: "PackageConfigs", dependencies: [
 //			"PhaseConfig",
@@ -50,10 +50,7 @@ let package = Package(
 #if canImport(PhaseConfig)
 import PhaseConfig
 
-PhaseConfig(
-	projectPath: "phase.xcodeproj",
-	phases: [
-		Phase(name: "example", script: "echo 'lol'", targets: ["Phase"])
-	]
-).write()
+PhaseConfig(phases: [
+	Phase(name: "example", script: "echo 'lol'", targets: ["Phase"])
+]).write()
 #endif
