@@ -43,7 +43,7 @@ dependencies: [
 ],
 ```
 
-Add target `PackageConfigs` to your targets and list the `PhaseConfig` along with `PackageConfig` there:
+Add target `PackageConfigs` to your targets and list the `PhaseConfig` there:
 ```swift
 .target(name: "PackageConfigs", dependencies: [
     "PhaseConfig",
