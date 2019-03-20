@@ -10,21 +10,18 @@ Define your build phases at the very bottom of your `Package.swift` like this.
 #if canImport(PhaseConfig)
 import PhaseConfig
 
-PhaseConfig(
-    projectPath: "YourProject.xcodeproj", // the path to your xcodeproj
-    phases: [
+PhaseConfig(phases: [
 	Phase(
-            name: "Swift Lint", 
-            script: "swiftlint", // actual bash script that will be added to xcodeproj build phase
-            targets: ["SomeTarget", "AnotherTarget"] // targets on which to apply
-        ),
-        Phase(
-            name: "Generate code",
-            script: "sourcery",
-            targets: ["OneMoreTarget"]
-        )
-    ]
-).write()
+        name: "Swift Lint", 
+        script: "swiftlint", // actual bash script that will be added to xcodeproj build phase
+        targets: ["SomeTarget", "AnotherTarget"] // targets on which to apply
+    ),
+    Phase(
+        name: "Generate code",
+        script: "sourcery",
+        targets: ["OneMoreTarget"]
+    )
+]).write()
 #endif
 ```
 
@@ -49,13 +46,12 @@ dependencies: [
 Add target `PackageConfigs` to your targets and list the `PhaseConfig` along with `PackageConfig` there:
 ```swift
 .target(name: "PackageConfigs", dependencies: [
-    "PackageConfig",
     "PhaseConfig",
 ]),
 ```
 
 To make sure you can run `phase` run this in your project directory with `Package.swift`.
 ```bash
-swift package resolve
 swift run package-config # builds PackageConfigs dependencies
 ```
+
