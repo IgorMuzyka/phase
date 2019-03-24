@@ -10,7 +10,7 @@ let package = Package(
 		.library(name: "PhaseConfig", type: .dynamic, targets: ["PhaseConfig"]),
     ],
     dependencies: [
-		.package(url: "https://github.com/IgorMuzyka/PackageConfig.git", .branch("master")),
+		.package(url: "https://github.com/orta/PackageConfig.git", from: "0.9.0"),
 //		.package(url: "https://github.com/orta/PackageConfig.git", from: "0.0.1"),
 		.package(url: "https://github.com/f-meloni/Logger", from: "0.1.0"),
 		.package(url: "https://github.com/tuist/xcodeproj.git", from: "6.6.0"),
