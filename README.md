@@ -28,7 +28,13 @@ PhaseConfig(phases: [
 Whenever you need your Build Phases injected into **xcodeproj** run this from directory with your `Package.swift`.
 
 ```bash
-swift run phase
+swift run phase install
+```
+
+Whenever you wish to execute your phase from command line within the project directory with `Package.swift`.
+
+```bash
+swift run phase run yourPhaseName
 ```
 
 Also consider that you probably don't need to have Xcode to be in your repository so you can add this line `/*.xcodeproj` to your `.gitignore`, and whenever you need your Xcode project just run `swift package generate-xcodeproj` and then you can inject Build Phases into your Xcode project using **phase**.

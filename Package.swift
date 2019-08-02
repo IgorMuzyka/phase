@@ -11,6 +11,8 @@ let package = Package(
     ],
     dependencies: [
 		.package(url: "https://github.com/orta/PackageConfig.git", from: "0.9.0"),
+		.package(url: "https://github.com/kylef/Commander", from: "0.8.0"),
+		.package(url: "https://github.com/kareman/SwiftShell", from: "4.0.0"),
 //		.package(url: "https://github.com/orta/PackageConfig.git", from: "0.0.1"),
 		.package(url: "https://github.com/f-meloni/Logger", from: "0.1.0"),
 		.package(url: "https://github.com/tuist/xcodeproj.git", from: "6.6.0"),
@@ -28,6 +30,8 @@ let package = Package(
 			"PackageConfig",
 		]),
 		.target(name: "Phase", dependencies: [
+			"Commander",
+			"SwiftShell",
 			"PhaseConfig",
 			"Logger",
 			"xcodeproj",
