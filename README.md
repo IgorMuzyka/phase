@@ -50,7 +50,7 @@ Add dependency to dependencies in your project `Package.swift`
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/IgorMuzyka/phase", from: "1.0.0"),  
+    .package(url: "https://github.com/IgorMuzyka/phase", from: "0.0.5"),  
 ],
 ```
 
