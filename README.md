@@ -21,6 +21,11 @@ PhaseConfig(phases: [
         script: "sourcery",
         targets: ["OneMoreTarget"]
     ),
+    Phase(
+        name: "xcode", // a phase to easily generate and inject phases in freshly made xcode project
+        script: "swift run package-config;swift package generate-xcodeproj;swift run phase install --verbose",
+        targets: [] // wont be installed on other targets, can be triggered via bash as "swift run phase run xcode"
+    ),
 ]).write()
 #endif
 ```
